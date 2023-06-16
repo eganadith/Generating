@@ -1,0 +1,18 @@
+package databaseOps
+
+import (
+	"NewTest/connections"
+	"NewTest/pkg/models"
+	"context"
+	"fmt"
+)
+
+func CreateCustomer(cust models.CustomerStruct) (string, error) {
+	customerCollection := connections.Database.Collection("customer")
+
+	result, err := customerCollection.InsertOne(context.TODO(), cust)
+	if err != nil {
+		return "0", err
+	}
+	return fmt.Sprintf("%v", result.InsertedID), err
+}

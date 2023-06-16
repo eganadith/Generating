@@ -1,0 +1,22 @@
+package apis
+
+import (
+	"NewTest/pkg/databaseOps"
+	"NewTest/pkg/models"
+	"github.com/labstack/echo/v4"
+)
+
+func CreateCustomerApi(c echo.Context) (string, error) {
+	cust := models.CustomerStruct{}
+	err := c.Bind(&cust)
+	if err != nil {
+		return "", err
+	}
+
+	id, err := databaseOps.CreateCustomer(cust)
+	if err != nil {
+		return "", err
+	}
+
+	return id, nil
+}

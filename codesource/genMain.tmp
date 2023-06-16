@@ -1,0 +1,22 @@
+package main
+
+import (
+	"NewTest/connections"
+	"NewTest/pkg/apis"
+	"fmt"
+	"github.com/labstack/echo/v4"
+)
+
+var seq = 1
+
+func main() {
+	fmt.Println("{{.Greeting}}")
+
+	connections.ConnectMongo()
+
+	e := echo.New()
+
+	apis.EchoConnection(e)
+
+	e.Logger.Fatal(e.Start(":8000"))
+}

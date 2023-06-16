@@ -1,0 +1,2 @@
+const Database_URI = "mongodb+srv://asan:asan123@asantest.akgvwhi.mongodb.net/?retryWrites=true&w=majority"
+const DatabaseName = "AsanTest"

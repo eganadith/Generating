@@ -1,0 +1,54 @@
+package apis
+
+import (
+	"github.com/labstack/echo/v4"
+	"net/http"
+)
+
+func SayHello(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Hello, World!")
+}
+
+func CreateCustomerApiController(c echo.Context) error {
+
+	id, err := CreateCustomerApi(c)
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, "")
+	} else {
+		return c.JSON(http.StatusOK, id)
+	}
+}
+
+func FindCustomerApiController(c echo.Context) error {
+
+	err := FindCustomerApi(c)
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, "")
+	} else {
+		return c.JSON(http.StatusOK, err)
+	}
+}
+
+func UpdateCustomerApiController(c echo.Context) error {
+
+	err := updateCustomerApi(c)
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, "")
+	} else {
+		return c.JSON(http.StatusOK, err)
+	}
+}
+
+func DeleteCustomerApiController(c echo.Context) error {
+
+	err := deleteCustomerApi(c)
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, "")
+	} else {
+		return c.JSON(http.StatusOK, err)
+	}
+}

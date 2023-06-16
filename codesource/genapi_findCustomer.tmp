@@ -1,0 +1,17 @@
+package apis
+
+import (
+	"NewTest/pkg/databaseOps"
+	"github.com/labstack/echo/v4"
+	"net/http"
+)
+
+func FindCustomerApi(c echo.Context) error {
+	custom := c.Param("name")
+	err := databaseOps.FindCustomer(custom)
+	if err != nil {
+		return err
+	}
+	return c.JSON(http.StatusOK, err)
+
+}

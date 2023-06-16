@@ -1,0 +1,32 @@
+package apis
+
+import (
+	"NewTest/connections"
+	"NewTest/pkg/models"
+	"context"
+	"github.com/labstack/echo/v4"
+	"go.mongodb.org/mongo-driver/bson"
+	"net/http"
+)
+
+func updateCustomerApi(c echo.Context) error {
+	custom := c.Param("name")
+	var updatedUser models.CustomerStruct
+	err := c.Bind(&updatedUser)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	customerCollection := connections.Database.Collection("customer")
+	_, err = customerCollection.UpdateOne(context.TODO(), bson.M{"name": custom}, bson.M{"$set": bson.M{
+		"email":    updatedUser.Email,
+		"password": updatedUser.Password,
+	}})
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return err
+	}
+	return c.JSON(http.StatusOK, updatedUser)
+
+}

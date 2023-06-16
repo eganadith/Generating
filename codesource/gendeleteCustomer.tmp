@@ -1,0 +1,18 @@
+package databaseOps
+
+import (
+	"NewTest/connections"
+	"context"
+	"go.mongodb.org/mongo-driver/bson"
+)
+
+func Deletecustomer(custom string) (string, error) {
+
+	customerCollection := connections.Database.Collection("customer")
+	_, err := customerCollection.DeleteOne(context.TODO(), bson.M{"name": custom})
+
+	if err != nil {
+		return "", err
+	}
+	return "", err
+}

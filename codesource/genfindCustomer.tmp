@@ -1,0 +1,20 @@
+package databaseOps
+
+import (
+	"NewTest/connections"
+	"NewTest/pkg/models"
+	"context"
+	"go.mongodb.org/mongo-driver/bson"
+)
+
+func FindCustomer(custom string) error {
+
+	customerCollection := connections.Database.Collection("customer")
+	var result models.CustomerStruct
+	err := customerCollection.FindOne(context.TODO(), bson.M{"name": custom}).Decode(&result)
+	if err != nil {
+		return err
+	}
+	return err
+
+}
